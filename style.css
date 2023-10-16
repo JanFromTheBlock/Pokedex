@@ -49,6 +49,10 @@ body{
 .d-none{
     display: none;
 }
+.open-topic{
+    color: black !important;
+    border-bottom: 1px solid blue;
+}
 #info-topics{
     display: flex;
     padding: 24px 0;
@@ -57,6 +61,14 @@ body{
     justify-content: space-around;
     color: rgb(212,214,217);
 }
+.topic{
+    padding-bottom: 10px;
+}
 .topic:hover{
     cursor: pointer;
+}
+#info-area{
+    display: flex;
+    justify-content: center;
+    padding: 40px;
 }
