@@ -1,3 +1,4 @@
+let pokemon = ['pikachu', 'charmander', 'rapidash', 'ponyta', 'jigglypuff', 'vulpix', 'squirtle', 'lillipup', 'snorlax', 'wigglytuff', 'meowth', 'dewgong','eevee']
 let currentPokemon;
 let currentColor;
 let typeColors = [
@@ -19,14 +20,48 @@ let typeColors = [
     { type: "dark", color: "#8D8D68" },
     { type: "steel", color: "#D1D1E0" },
     { type: "fairy", color: "#F4BDC9" }
-  ];
-async function loadPokemon() {
-    let url = 'https://pokeapi.co/api/v2/pokemon/pikachu';
+];
+
+async function loadPokedex() {
+    document.getElementById('pokedex').innerHTML = '';
+    for (let index = 0; index < pokemon.length; index++) {
+        const element = pokemon[index];
+        await definePokemon(element);
+        currentPokemonName = currentPokemon['name']
+        document.getElementById('pokedex').innerHTML +=/*html*/`
+        <div onclick='loadPokemon("${currentPokemonName}")' class='pokemon' id='pokemon${index}'>
+            <div class='pokemon-overview'>
+                <div class="pokemon-overview-title" id='pokemon-overview-title${index}'></div>
+                <div class='pokemon-type' id='pokemon-overview-type1${index}'></div>
+                <div class='pokemon-type d-none' id='pokemon-overview-type2${index}'></div>
+            </div>
+            <img class="pokemon-overview-pic" id="pokemon-overview-pic${index}" src="">
+        </div>
+    `
+    document.getElementById('pokemon-overview-title' + index).innerHTML = currentPokemon['name'];
+    document.getElementById('pokemon-overview-pic'+ index).src = currentPokemon['sprites']['other']['official-artwork']['front_default'];
+    document.getElementById('pokemon-overview-type1'+ index).innerHTML = currentPokemon['types']['0']['type']['name'];
+    if (currentPokemon['types']['1']) {
+        document.getElementById('pokemon-overview-type2'+ index).innerHTML = currentPokemon['types']['1']['type']['name'];
+        document.getElementById('pokemon-overview-type2'+ index).classList.remove('d-none');
+    }
+    getColorForType();
+    document.getElementById('pokemon'+ index).style.background = currentColor;
+    }
+}
+
+async function loadPokemon(pokemonToLoad) {
+    
+    await definePokemon(pokemonToLoad);
+    renderPokemonInfo();
+    document.getElementById('detail-window').classList.remove('d-none')
+}
+
+async function definePokemon(pokemonToLoad){
+    let url = `https://pokeapi.co/api/v2/pokemon/${pokemonToLoad}/`;
     let response = await fetch(url);
     currentPokemon = await response.json();
     console.log('Loaded pokemon', currentPokemon)
-
-    renderPokemonInfo();
 }
 
 function renderPokemonInfo() {
@@ -42,16 +77,16 @@ function renderPokemonInfo() {
     SetBackgroundColor();
 }
 
-function getColorForType(){
+function getColorForType() {
     typeName = currentPokemon['types']['0']['type']['name'];
     for (let i = 0; i < typeColors.length; i++) {
         if (typeColors[i].type === typeName) {
-          currentColor = typeColors[i].color;
+            currentColor = typeColors[i].color;
         }
-      }
+    }
 }
-function SetBackgroundColor(){
-    document.getElementById('pokedex').style.background = currentColor;
+function SetBackgroundColor() {
+    document.getElementById('pokemon-detail').style.background = currentColor;
 }
 function openAbout() {
     document.getElementById('about').classList.add('open-topic');

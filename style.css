@@ -9,7 +9,7 @@ body{
     left: 50%;
     transform: translate(-50%, -50%);
 }
-#pokedex{
+#pokemon-detail{
     min-height: 500px;
     color: white;
     display: flex;
@@ -93,4 +93,31 @@ body{
 }
 #table-base-stats{
     border-spacing: 25px 1px;
+}
+.pokemon{
+    display: flex;
+    width: 250px;
+    border-radius: 10px;
+    padding: 10px;
+    margin: 10px;
+    justify-content: space-between;
+}
+.pokemon-overview{
+    color: white;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.pokemon-overview-title{
+    font-size: 24px;
+    font-weight: 700;
+}
+.pokemon-overview-pic{
+    height: 120px;
+}
+#pokedex{
+    display: flex;
+    margin: 10px;
+    flex-wrap: wrap;
+    justify-content: center;
 }
