@@ -1,4 +1,4 @@
-let pokemon = ['pikachu', 'charmander', 'rapidash', 'ponyta', 'jigglypuff', 'vulpix', 'squirtle', 'lillipup', 'snorlax', 'wigglytuff', 'meowth', 'dewgong','eevee']
+let pokemon = ['pikachu', 'charmander', 'rapidash', 'ponyta', 'jigglypuff', 'vulpix', 'squirtle', 'lillipup', 'snorlax', 'wigglytuff', 'meowth', 'dewgong','eevee', 'mew', 'ivysaur', 'charizard', 'blastoise', 'metapod', 'pidgeotto', 'fearow', 'raichu', 'sandslash', 'nidoqueen', 'wigglytuff', 'zubat', 'psyduck', 'mankey', 'poliwag', 'alakazam', 'machoke', 'graveler', 'onix', 'exeggutor' ]
 let currentPokemon;
 let currentColor;
 let typeColors = [
@@ -54,7 +54,14 @@ async function loadPokemon(pokemonToLoad) {
     
     await definePokemon(pokemonToLoad);
     renderPokemonInfo();
-    document.getElementById('detail-window').classList.remove('d-none')
+    document.getElementById('detail-window').classList.remove('d-none');
+    document.getElementById('pokedex-lock').classList.remove('d-none')
+    openAbout();
+}
+
+function closePokemon(){
+    document.getElementById('detail-window').classList.add('d-none');
+    document.getElementById('pokedex-lock').classList.add('d-none')
 }
 
 async function definePokemon(pokemonToLoad){
@@ -67,7 +74,8 @@ async function definePokemon(pokemonToLoad){
 function renderPokemonInfo() {
     document.getElementById('pokemon-name').innerHTML = currentPokemon['name'];
     document.getElementById('pokemon-pic').src = currentPokemon['sprites']['other']['official-artwork']['front_default'];
-    document.getElementById('poke-index').innerHTML = /*html*/`#00${currentPokemon['id']}`;
+    let pokemonId = ('000' + currentPokemon['id']).substr(-3);
+    document.getElementById('poke-index').innerHTML = /*html*/`#${pokemonId}`;
     document.getElementById('type1').innerHTML = currentPokemon['types']['0']['type']['name'];
     if (currentPokemon['types']['1']) {
         document.getElementById('type2').innerHTML = currentPokemon['types']['1']['type']['name'];
@@ -90,6 +98,7 @@ function SetBackgroundColor() {
 }
 function openAbout() {
     document.getElementById('about').classList.add('open-topic');
+    document.getElementById('base-stats').classList.remove('open-topic');
     document.getElementById('info-area').innerHTML = /*html*/`
         <div>
            <table id="table-about">
@@ -124,6 +133,7 @@ function openAbout() {
 
 function openBaseStats() {
     document.getElementById('base-stats').classList.add('open-topic');
+    document.getElementById('about').classList.remove('open-topic');
     document.getElementById('info-area').innerHTML = /*html*/`
     <div>
     <table id="table-base-stats">
@@ -181,8 +191,10 @@ function openBaseStats() {
     `
 
     for (let index = 0; index < 6; index++) {
-        const progress = currentPokemon['stats'][index]['base_stat'];
+        let progress = currentPokemon['stats'][index]['base_stat'];
+        progress = progress/2;
         document.getElementById('progress' + index).style.width = `${progress}%`
         document.getElementById('progress' + index).style.background = currentColor
     }
 }
+

@@ -15,13 +15,17 @@
 </head>
 
 <body onload="loadPokedex()">
-    <div id="pokedex">
+    <div id="title">
+        <img src="./img/pokeball.png">
+        <h1>Pokedex</h1>
     </div>
+    <div id="pokedex"></div>
+    <div id="pokedex-lock" class="d-none"></div>
     <div id="detail-window" class="d-none">
         <div id="pokemon-detail">
             <div id="headline">
                 <h1 id="pokemon-name">Name</h1>
-                <h1>X</h1>
+                <h1 id="close-pokemon" onclick="closePokemon()">X</h1>
             </div>
             <div id="pokemon-categories">
                 <div id="poke-index">Index</div>
@@ -35,13 +39,12 @@
                 <div id="info-topics">
                     <div onclick="openAbout()" class="topic" id="about">About</div>
                     <div onclick="openBaseStats()" class="topic" id="base-stats">Base Stats</div>
-                    <div class="topic" id="moves">Moves</div>
                 </div>
                 <div id="info-area"></div>
             </div>
         </div>
     </div>
-
+<footer class="footer"><a href="https://www.flaticon.com/de/kostenlose-icons/pokemon" title="pokémon Icons">Pokémon Icons erstellt von Those Icons - Flaticon</a></footer>
 </body>
 
 </html>
