@@ -1,6 +1,8 @@
-let pokemon = ['pikachu', 'charmander', 'rapidash', 'ponyta', 'jigglypuff', 'vulpix', 'squirtle', 'lillipup', 'snorlax', 'wigglytuff', 'meowth', 'dewgong','eevee', 'mew', 'ivysaur', 'charizard', 'blastoise', 'metapod', 'pidgeotto', 'fearow', 'raichu', 'sandslash', 'nidoqueen', 'wigglytuff', 'zubat', 'psyduck', 'mankey', 'poliwag', 'alakazam', 'machoke', 'graveler', 'onix', 'exeggutor' ]
 let currentPokemon;
+let currentIndex;
 let currentColor;
+let amountOfPokemonToLoad = 31;
+let numberOfLoadedPokemon = 1;
 let typeColors = [
     { type: "normal", color: "#C6C6A7" },
     { type: "fire", color: "#FFAB60" },
@@ -23,13 +25,20 @@ let typeColors = [
 ];
 
 async function loadPokedex() {
-    document.getElementById('pokedex').innerHTML = '';
-    for (let index = 0; index < pokemon.length; index++) {
-        const element = pokemon[index];
-        await definePokemon(element);
-        currentPokemonName = currentPokemon['name']
-        document.getElementById('pokedex').innerHTML +=/*html*/`
-        <div onclick='loadPokemon("${currentPokemonName}")' class='pokemon' id='pokemon${index}'>
+    for (let index = numberOfLoadedPokemon; index < amountOfPokemonToLoad; index++) {
+        await definePokemon(index);
+        currentPokemonName = currentPokemon['name'];
+        numberOfLoadedPokemon++;
+        loadPokedexHtml(index);
+        definePokedexVariables(index);
+        getColorForType();
+        document.getElementById('pokemon' + index).style.background = currentColor;
+    }
+}
+
+function loadPokedexHtml(index) {
+    return document.getElementById('pokedex').innerHTML +=/*html*/`
+        <div onclick='loadPokemon("${index}")' class='pokemon' id='pokemon${index}'>
             <div class='pokemon-overview'>
                 <div class="pokemon-overview-title" id='pokemon-overview-title${index}'></div>
                 <div class='pokemon-type' id='pokemon-overview-type1${index}'></div>
@@ -37,38 +46,40 @@ async function loadPokedex() {
             </div>
             <img class="pokemon-overview-pic" id="pokemon-overview-pic${index}" src="">
         </div>
-    `
+        `
+}
+
+function definePokedexVariables(index) {
     document.getElementById('pokemon-overview-title' + index).innerHTML = currentPokemon['name'];
-    document.getElementById('pokemon-overview-pic'+ index).src = currentPokemon['sprites']['other']['official-artwork']['front_default'];
-    document.getElementById('pokemon-overview-type1'+ index).innerHTML = currentPokemon['types']['0']['type']['name'];
+    document.getElementById('pokemon-overview-pic' + index).src = currentPokemon['sprites']['other']['official-artwork']['front_default'];
+    document.getElementById('pokemon-overview-type1' + index).innerHTML = currentPokemon['types']['0']['type']['name'];
     if (currentPokemon['types']['1']) {
-        document.getElementById('pokemon-overview-type2'+ index).innerHTML = currentPokemon['types']['1']['type']['name'];
-        document.getElementById('pokemon-overview-type2'+ index).classList.remove('d-none');
-    }
-    getColorForType();
-    document.getElementById('pokemon'+ index).style.background = currentColor;
+        document.getElementById('pokemon-overview-type2' + index).innerHTML = currentPokemon['types']['1']['type']['name'];
+        document.getElementById('pokemon-overview-type2' + index).classList.remove('d-none');
     }
 }
 
 async function loadPokemon(pokemonToLoad) {
-    
     await definePokemon(pokemonToLoad);
     renderPokemonInfo();
     document.getElementById('detail-window').classList.remove('d-none');
-    document.getElementById('pokedex-lock').classList.remove('d-none')
+    document.getElementById('pokedex-lock').classList.remove('d-none');
+    document.getElementById('body').style.overflow = 'hidden';
+    window.scrollTo(0, 0);
     openAbout();
 }
 
-function closePokemon(){
+function closePokemon() {
     document.getElementById('detail-window').classList.add('d-none');
-    document.getElementById('pokedex-lock').classList.add('d-none')
+    document.getElementById('pokedex-lock').classList.add('d-none');
+    document.getElementById('body').style.overflow = 'auto';
 }
 
-async function definePokemon(pokemonToLoad){
+async function definePokemon(pokemonToLoad) {
     let url = `https://pokeapi.co/api/v2/pokemon/${pokemonToLoad}/`;
+    currentIndex = pokemonToLoad;
     let response = await fetch(url);
     currentPokemon = await response.json();
-    console.log('Loaded pokemon', currentPokemon)
 }
 
 function renderPokemonInfo() {
@@ -93,34 +104,15 @@ function getColorForType() {
         }
     }
 }
+
 function SetBackgroundColor() {
     document.getElementById('pokemon-detail').style.background = currentColor;
 }
+
 function openAbout() {
     document.getElementById('about').classList.add('open-topic');
     document.getElementById('base-stats').classList.remove('open-topic');
-    document.getElementById('info-area').innerHTML = /*html*/`
-        <div>
-           <table id="table-about">
-           <tr>
-               <td>Height</td>
-               <td>${currentPokemon['height']}</td> 
-            </tr>
-            <tr>
-               <td>Weight</td>
-               <td>${currentPokemon['weight']}</td> 
-            </tr>
-            <tr>
-               <td>BaseEXP</td>
-               <td>${currentPokemon['base_experience']}</td> 
-            </tr>
-            <tr>
-               <td>Abilities</td>
-               <td id = "abilities"></td> 
-            </tr>
-           </table> 
-        </div>
-    `
+    renderAboutHtml();
     for (let i = 0; i < currentPokemon['abilities'].length; i++) {
         const element = currentPokemon['abilities'][i]['ability']['name'];
         if (i + 1 !== currentPokemon['abilities'].length) {
@@ -131,10 +123,45 @@ function openAbout() {
     }
 }
 
+function renderAboutHtml() {
+    return document.getElementById('info-area').innerHTML = /*html*/`
+    <div>
+       <table id="table-about">
+       <tr>
+           <td>Height</td>
+           <td>${currentPokemon['height']}</td> 
+        </tr>
+        <tr>
+           <td>Weight</td>
+           <td>${currentPokemon['weight']}</td> 
+        </tr>
+        <tr>
+           <td>BaseEXP</td>
+           <td>${currentPokemon['base_experience']}</td> 
+        </tr>
+        <tr>
+           <td>Abilities</td>
+           <td id = "abilities"></td> 
+        </tr>
+       </table> 
+    </div>
+`
+}
+
 function openBaseStats() {
     document.getElementById('base-stats').classList.add('open-topic');
     document.getElementById('about').classList.remove('open-topic');
-    document.getElementById('info-area').innerHTML = /*html*/`
+    renderBaseStatsHtml();
+    for (let index = 0; index < 6; index++) {
+        let progress = currentPokemon['stats'][index]['base_stat'];
+        progress = progress / 2;
+        document.getElementById('progress' + index).style.width = `${progress}%`
+        document.getElementById('progress' + index).style.background = currentColor
+    }
+}
+
+function renderBaseStatsHtml() {
+    return document.getElementById('info-area').innerHTML = /*html*/`
     <div>
     <table id="table-base-stats">
         <tr>
@@ -189,12 +216,9 @@ function openBaseStats() {
     </div>
         
     `
-
-    for (let index = 0; index < 6; index++) {
-        let progress = currentPokemon['stats'][index]['base_stat'];
-        progress = progress/2;
-        document.getElementById('progress' + index).style.width = `${progress}%`
-        document.getElementById('progress' + index).style.background = currentColor
-    }
 }
 
+function loadMorePokemon() {
+    amountOfPokemonToLoad = amountOfPokemonToLoad + 30;
+    loadPokedex();
+}

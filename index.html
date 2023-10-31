@@ -15,13 +15,13 @@
         <link rel="icon" type="png" href="./img/pokeball.png">    
 </head>
 
-<body onload="loadPokedex()">
+<body id="body" onload="loadPokedex()">
     <div id="title">
         <img src="./img/pokeball.png">
         <h1>Pokedex</h1>
     </div>
     <div id="pokedex"></div>
-    <div id="pokedex-lock" class="d-none"></div>
+    <div onclick="closePokemon()" id="pokedex-lock" class="d-none"></div>
     <div id="detail-window" class="d-none">
         <div id="pokemon-detail">
             <div id="headline">
@@ -32,6 +32,10 @@
                 <div id="poke-index">Index</div>
                 <div class="pokemon-type" id="type1">Type1</div>
                 <div class="pokemon-type d-none" id="type2">Type2</div>
+            </div>
+            <div id="arrows">
+                <img onclick="loadPokemon(parseInt(currentIndex) - 1)" class="arrow" src="./img/linker-pfeil.png">
+                <img onclick="loadPokemon(parseInt(currentIndex) + 1)"  class="arrow" src="./img/rechter-pfeil.png">
             </div>
         </div>
         <div id="info-container">
@@ -45,6 +49,7 @@
             </div>
         </div>
     </div>
+    <button onclick="loadMorePokemon()">load more pokemon</button>
 <footer class="footer"><a href="https://www.flaticon.com/de/kostenlose-icons/pokemon" title="pokémon Icons">Pokémon Icons erstellt von Those Icons - Flaticon</a></footer>
 </body>
 
