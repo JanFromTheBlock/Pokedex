@@ -32,7 +32,7 @@ async function loadPokedex() {
         loadPokedexHtml(index);
         definePokedexVariables(index);
         getColorForType();
-        document.getElementById('pokemon' + index).style.background = currentColor;
+        document.getElementById('pokemon' + index).style.background = `radial-gradient(circle, rgba(249,249,249,1) 0%, ${currentColor} 100%)`;
     }
 }
 
@@ -41,10 +41,14 @@ function loadPokedexHtml(index) {
         <div onclick='loadPokemon("${index}")' class='pokemon' id='pokemon${index}'>
             <div class='pokemon-overview'>
                 <div class="pokemon-overview-title" id='pokemon-overview-title${index}'></div>
+            </div>
+            <div class="img">
+                <img class="pokemon-overview-pic" id="pokemon-overview-pic${index}" src="">
+            </div>
+            <div class="types">
                 <div class='pokemon-type' id='pokemon-overview-type1${index}'></div>
                 <div class='pokemon-type d-none' id='pokemon-overview-type2${index}'></div>
             </div>
-            <img class="pokemon-overview-pic" id="pokemon-overview-pic${index}" src="">
         </div>
         `
 }
