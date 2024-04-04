@@ -1,7 +1,12 @@
 body {
     margin: 0;
-    font-family: 'Roboto', sans-serif;
+    font-family: 'cronos', Arial, Helvetica, sans-serif;
     background: url("./img/background.jpg")
+}
+
+@font-face {
+    font-family: 'cronos';
+    src: url('./fonts/Cronos-Pro_12459.ttf') format('truetype');
 }
 
 #detail-window {
@@ -15,7 +20,7 @@ body {
 
 #pokemon-detail {
     min-height: 340px;
-    color: white;
+    color: black;
     display: flex;
     flex-direction: column;
     padding: 10px 24px;
@@ -64,7 +69,7 @@ body {
 }
 
 .d-none {
-    display: none;
+    display: none !important;
 }
 
 .open-topic {
@@ -91,7 +96,7 @@ body {
 #info-area {
     display: flex;
     justify-content: center;
-    padding: 20px 20px;
+    padding: 20px 0;
     height: 140px;
 }
 
@@ -138,7 +143,7 @@ body {
 }
 
 .pokemon-overview {
-    color: white;
+    color: black;
     display: flex;
     flex-direction: column;
     gap: 10px;
@@ -160,6 +165,36 @@ body {
     margin: 10px;
     flex-wrap: wrap;
     justify-content: center;
+}
+
+#loading-animation{
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    height: 100%;
+    width: 100%;
+    background-color: black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 40px;
+}
+
+#turning-img{
+    animation: spin 2s linear infinite;
+    width: 200px;
+}
+
+ @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+      }
+
+#turning-slogan{
+    width: 300px;
 }
 
 #pokedex-lock {
@@ -215,7 +250,10 @@ body {
     display: flex;
     flex-direction: column;
     gap: 4px;
-    background-color: white;
+}
+
+.c-white{
+    color: white;
 }
 
 button {
@@ -292,8 +330,12 @@ button {
     }
 
     #info-area {
-        padding: 20px 5px;
+        padding: 20px 0px;
         height: 123px;
+    }
+
+    #table-base-stats{
+        font-size: 14px;
     }
 
 }

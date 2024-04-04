@@ -25,6 +25,7 @@ let typeColors = [
 ];
 
 async function loadPokedex() {
+    document.getElementById('loading-animation').classList.remove('d-none');
     for (let index = numberOfLoadedPokemon; index < amountOfPokemonToLoad; index++) {
         await definePokemon(index);
         currentPokemonName = currentPokemon['name'];
@@ -34,6 +35,7 @@ async function loadPokedex() {
         getColorForType();
         document.getElementById('pokemon' + index).style.background = `radial-gradient(circle, rgba(249,249,249,1) 0%, ${currentColor} 100%)`;
     }
+    document.getElementById('loading-animation').classList.add('d-none');
 }
 
 function loadPokedexHtml(index) {
