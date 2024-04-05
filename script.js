@@ -56,7 +56,7 @@ function loadPokedexHtml(index) {
 }
 
 function definePokedexVariables(index) {
-    document.getElementById('pokemon-overview-title' + index).innerHTML = currentPokemon['name'];
+    document.getElementById('pokemon-overview-title' + index).innerHTML = currentPokemon['name'].charAt(0).toUpperCase() + currentPokemon['name'].slice(1);
     document.getElementById('pokemon-overview-pic' + index).src = currentPokemon['sprites']['other']['official-artwork']['front_default'];
     document.getElementById('pokemon-overview-type1' + index).innerHTML = currentPokemon['types']['0']['type']['name'];
     if (currentPokemon['types']['1']) {
@@ -89,7 +89,7 @@ async function definePokemon(pokemonToLoad) {
 }
 
 function renderPokemonInfo() {
-    document.getElementById('pokemon-name').innerHTML = currentPokemon['name'];
+    document.getElementById('pokemon-name').innerHTML = currentPokemon['name'].charAt(0).toUpperCase() + currentPokemon['name'].slice(1);
     document.getElementById('pokemon-pic').src = currentPokemon['sprites']['other']['official-artwork']['front_default'];
     let pokemonId = ('000' + currentPokemon['id']).substr(-3);
     document.getElementById('poke-index').innerHTML = /*html*/`#${pokemonId}`;
