@@ -228,3 +228,57 @@ function loadMorePokemon() {
     amountOfPokemonToLoad = amountOfPokemonToLoad + 30;
     loadPokedex();
 }
+
+async function filterPokemon() {
+    debugger
+    document.getElementById('loading-animation').classList.remove('d-none');
+    let search = document.getElementById('search').value.toLowerCase();
+    if (search.length > 2) {
+        SearchPokemon();
+    }
+    else {
+        searchUnsuccesful();
+    }
+    document.getElementById('search').value = '';
+    document.getElementById('loading-animation').classList.add('d-none');
+}
+
+document.addEventListener("DOMContentLoaded", function () {
+    document.getElementById("search").addEventListener("keydown", function (event) {
+        if (event.keyCode === 13) {
+            filterPokemon();
+        }
+    })
+})
+
+async function SearchPokemon() {
+    document.getElementById('pokedex').innerHTML = '';
+    let numberOfSearchHits = 0;
+    for (let index = 1; index < 1026; index++) {
+        await definePokemon(index);
+        currentPokemonName = currentPokemon['name'];
+        if (currentPokemonName.toLowerCase().includes(search)) {
+            loadSearchedPokemon(index)}
+    }
+    if (numberOfSearchHits == 0) {
+        searchUnsuccesful()}
+}
+
+function loadSearchedPokemon(index) {
+    numberOfSearchHits++;
+    loadPokedexHtml(index);
+    definePokedexVariables(index);
+    getColorForType();
+    document.getElementById('pokemon' + index).style.background = `radial-gradient(circle, rgba(249,249,249,1) 0%, ${currentColor} 100%)`;
+
+}
+
+function closeErrorDiv() {
+    document.getElementById('error-div').classList.add('d-none')
+}
+
+function searchUnsuccesful() {
+    numberOfLoadedPokemon = 1;
+    loadPokedex();
+    document.getElementById('error-div').classList.remove('d-none')
+}

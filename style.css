@@ -9,6 +9,60 @@ body {
     src: url('./fonts/Cronos-Pro_12459.ttf') format('truetype');
 }
 
+#error-div {
+    position: absolute;
+    top: calc(50% - 124px);
+    left: calc(50% - 394.5px);
+    display: flex;
+    justify-content: center;
+    align-items: baseline;
+    gap: 20px;
+    background: white;
+    font-size: 32px;
+    padding: 20px;
+    border-radius: 10px;
+    border: 5px solid black;
+    height: 200px;
+}
+
+#close-error-div {
+    margin: 0;
+    font-size: 50px;
+    border-radius: 10px;
+    padding: 0 16px;
+    border-radius: 40px;
+}
+
+#close-error-div:hover {
+    cursor: pointer;
+    background-color: rgba(0, 0, 0, 0.17);
+}
+
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+.search {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.search button {
+    margin-left: unset !important;
+    font-size: 24px;
+}
+
+.search input {
+    height: 20px;
+    border-radius: 20px;
+    padding: 5px 10px;
+    border: 6px solid #E6C81D;
+    outline: none;
+}
+
 #detail-window {
     position: absolute;
     width: 400px;
@@ -167,7 +221,7 @@ body {
     justify-content: center;
 }
 
-#loading-animation{
+#loading-animation {
     position: fixed;
     top: 0;
     left: 0;
@@ -183,17 +237,22 @@ body {
     gap: 40px;
 }
 
-#turning-img{
+#turning-img {
     animation: spin 2s linear infinite;
     width: 200px;
 }
 
- @keyframes spin {
-        0% { transform: rotate(0deg); }
-        100% { transform: rotate(360deg); }
-      }
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
 
-#turning-slogan{
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+#turning-slogan {
     width: 300px;
 }
 
@@ -252,7 +311,7 @@ body {
     gap: 4px;
 }
 
-.c-white{
+.c-white {
     color: white;
 }
 
@@ -264,6 +323,10 @@ button {
     border: 1px solid #E6C81D;
     border-radius: 4px;
     font-weight: 700;
+}
+
+button:hover {
+    cursor: pointer;
 }
 
 .arrow {
@@ -284,7 +347,39 @@ button {
     cursor: pointer;
 }
 
+@media(max-width: 900px) {
+    .header {
+        flex-direction: column;
+    }
+
+    #error-div {
+        font-size: 18px;
+        height: 120px;
+        top: calc(50% - 84px);
+        left: calc(50% - 239px);
+    }
+
+    #close-error-div {
+        font-size: 32px;
+        padding: 0px 10px;
+    }
+}
+
 @media(max-width: 500px) {
+
+    #error-div {
+        width: 252px;
+        left: calc(50% - 150px);
+        font-size: 16px;
+        height: 100px;
+        top: calc(50% - 74px);
+    }
+
+    #close-error-div {
+        font-size: 24px;
+        padding: 0 8px;
+    }
+
     #detail-window {
         width: 280px;
         border: 7px solid #E6C81D;
@@ -334,7 +429,7 @@ button {
         height: 123px;
     }
 
-    #table-base-stats{
+    #table-base-stats {
         font-size: 14px;
     }
 
@@ -343,5 +438,9 @@ button {
 @media(max-width: 450px) {
     #title-img {
         height: 83px;
+    }
+
+    .search {
+        flex-direction: column;
     }
 }
