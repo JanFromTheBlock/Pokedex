@@ -9,6 +9,16 @@ body {
     src: url('./fonts/Cronos-Pro_12459.ttf') format('truetype');
 }
 
+.o-hidden{
+    overflow: hidden;
+}
+
+#title:hover{
+    cursor: pointer;
+    transform: scale(1.1);
+    filter: brightness(1.2);
+}
+
 #error-div {
     position: absolute;
     top: calc(50% - 124px);
@@ -23,6 +33,7 @@ body {
     border-radius: 10px;
     border: 5px solid black;
     height: 200px;
+    z-index: 10;
 }
 
 #close-error-div {
@@ -269,6 +280,12 @@ body {
 
 #close-pokemon {
     cursor: pointer;
+    border-radius: 30px;
+    padding: 0 9.5px;
+}
+
+#close-pokemon:hover {
+    background-color: rgba(0, 0, 0, 0.17);
 }
 
 .img {
@@ -303,6 +320,18 @@ body {
     gap: 10px;
 }
 
+#blurred-background{
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 100vh;
+    width: 100vb;
+    background-color: rgba(0, 0, 0, 0.6);
+    z-index: 2;
+}
+
 .footer {
     margin: 10px;
     font-size: 12px;
@@ -327,6 +356,8 @@ button {
 
 button:hover {
     cursor: pointer;
+    transform: scale(1.1);
+    filter: brightness(1.2);
 }
 
 .arrow {

@@ -17,12 +17,12 @@
 
 <body id="body" onload="loadPokedex()">
     <div class="header">
-        <div id="title">
+        <div onclick="refreshPokemon()" id="title">
             <img id="pokeball" src="./img/pokeball.png">
             <img id="title-img" src="./img/title.png" alt="">
         </div>
         <div class="search">
-            <input id="search" placeholder="search Pokemon" type="text">
+            <input autocomplete="off" id="search" placeholder="search Pokemon" type="text">
             <button onclick="filterPokemon()">Catch it!</button>
         </div>
     </div>
@@ -72,6 +72,7 @@
         <span>Your search was not succesful.<br>Please note that at least three letters must be entered.</span>
         <h1 onclick="closeErrorDiv()" id="close-error-div">X</h1>
     </div>
+    <div onclick="closeErrorDiv()" id="blurred-background" class="d-none"></div>
 </body>
 
 </html>
