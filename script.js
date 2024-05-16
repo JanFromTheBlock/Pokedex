@@ -232,7 +232,6 @@ function loadMorePokemon() {
 }
 
 async function filterPokemon() {
-    
     document.getElementById('loading-animation').classList.remove('d-none');
     let search = document.getElementById('search').value.toLowerCase();
     if (search.length > 2) {
